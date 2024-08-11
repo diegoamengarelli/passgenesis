@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='passgenesis',
-    version='1.0',
+    name='SafePassGen',
+    version='1.0.6',
     packages=find_packages(),
     install_requires=[],
     entry_points={
         'console_scripts': [
-            'passgenesis=secure_password.__main__:main',
+            'SafePassGen=secure_password.__main__:main',
         ],
     },
     author='Diego Mengarelli',

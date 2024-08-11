@@ -1,10 +1,10 @@
 
-# passgenesis
+# SafePassGen
 
 ![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-**passgenesis** is a Python package for generating secure, customizable passwords with various constraints. It also includes functionality to check the strength and vulnerability of passwords, making it a comprehensive tool for managing password security.
+**SafePassGen** is a Python package for generating secure, customizable passwords with various constraints. It also includes functionality to check the strength and vulnerability of passwords, making it a comprehensive tool for managing password security.
 
 ## Features
 
@@ -21,21 +21,29 @@
 
 ## Installation
 
-You can install **passgenesis** via pip:
+You can install **SafePassGen** via pip:
 
 \`\`\`bash
-pip install securepassword
+pip install SafePassGen
 \`\`\`
 
 Or clone the repository and install manually:
 
 \`\`\`bash
-git clone https://github.com/diegoamengarelli/securepassword.git
-cd securepassword
+git clone https://github.com/diegoamengarelli/passgenesis.git
+cd secure_password
 pip install .
 \`\`\`
 
 ## Usage
+
+### CLI Example
+
+secure_password --quantity 1 --length 16 --uppercase  --lowercase --numbers --symbols --check-strength
+
+w-ykR7?hcz^|><Xd
+
+Strength: Strong
 
 ### Basic Usage
 
@@ -89,7 +97,7 @@ Output:
 - **length**: Length of the password(s) to be generated.
 - **include_numbers**: Include numbers in the password.
 - **include_lowercase**: Include lowercase characters in the password.
-- **include_uppercase**: Include uppercase characters in the password.
+- **include_uppercase**: Include uppercase characters in the password.secure_password
 - **include_symbols**: Include symbols in the password.
 - **no_duplicates**: Ensure no duplicate characters within the password.
 - **begin_with_letter**: Ensure the password starts with a letter.
@@ -114,7 +122,7 @@ Make sure all tests pass before using the package in a production environment.
 
 ## Contributing
 
-We welcome contributions to enhance the functionality and usability of **passgenesis**. To contribute:
+We welcome contributions to enhance the functionality and usability of **SafePassGen**. To contribute:
 
 1. Fork the repository.
 2. Create a new branch (\`git checkout -b feature-branch\`).

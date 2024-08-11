@@ -1,9 +1,37 @@
 import argparse
-from generator import PasswordGenerator
-from validator import PasswordStrengthChecker
+from .generator import PasswordGenerator
+from .validator import PasswordStrengthChecker
+
+
+def check_password_strength(passwords):
+    """Check the strength of each generated password."""
+    checker = PasswordStrengthChecker()
+    if isinstance(passwords, str):
+        result = checker.check_strength(passwords)
+        print(f"\nStrength: {result['strength']}")
+        if result["suggestions"]:
+            print("Suggestions:")
+            for suggestion in result["suggestions"]:
+                print(f"- {suggestion}")
+
+    else:
+        for i, pwd in enumerate(passwords, start=1):
+            result = checker.check_strength(pwd)
+            print(f"\nPassword {i} Strength: {result['strength']}")
+            if result["suggestions"]:
+                print("Suggestions:")
+                for suggestion in result["suggestions"]:
+                    print(f"- {suggestion}")
 
 
 def generate_passwords(args):
+    """Generate passwords based on the provided arguments."""
+    # Ensure at least one character type is included
+    if not (args.numbers or args.lowercase or args.uppercase or args.symbols):
+        raise ValueError(
+            "You must specify at least one character type (numbers, lowercase, uppercase, symbols)."
+        )
+
     generator = PasswordGenerator(
         length=args.length,
         include_numbers=args.numbers,
@@ -17,17 +45,6 @@ def generate_passwords(args):
     )
 
     return generator.generate_passwords()
-
-
-def check_password_strength(passwords):
-    checker = PasswordStrengthChecker()
-    for i, pwd in enumerate(passwords, start=1):
-        result = checker.check_strength(pwd)
-        print(f"\nPassword {i} Strength: {result['strength']}")
-        if result["suggestions"]:
-            print("Suggestions:")
-            for suggestion in result["suggestions"]:
-                print(f"- {suggestion}")
 
 
 def main():
@@ -89,11 +106,18 @@ def main():
     args = parser.parse_args()
 
     # Generate passwords
-    passwords = generate_passwords(args)
+    try:
+        passwords = generate_passwords(args)
+    except ValueError as e:
+        print(e)
+        return
 
     # Print generated passwords
-    for i, pwd in enumerate(passwords, start=1):
-        print(f"Password {i}: {pwd}")
+    if isinstance(passwords, str):  # If a single password is returned
+        print(passwords)
+    else:  # If multiple passwords are returned
+        for i, pwd in enumerate(passwords, start=1):
+            print(f"Password {i}: {pwd}")
 
     # Optionally check password strength
     if args.check_strength:
